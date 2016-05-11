@@ -15,27 +15,57 @@ class ExistingGroupViewController: UIViewController {
     var group: PFObject!;
     
     var user : PFUser!;
-    
+    var ranchersArray = [PFObject]();
+
     var bulls = [PFObject]();
     var lines = [String]();
     
-    var header = "animal_age,animal_ageType,animal_brand,animal_breed,animal_dateOfBirth,animal_lotNumber,animal_rfid,animal_tag,animal_tattoo,animal_other,bodyPartInfo_bodyParts_0_description,bodyPartInfo_bodyParts_0_name,bodyPartInfo_bodyParts_0_normal,bodyPartInfo_bodyParts_10_description,bodyPartInfo_bodyParts_10_name,bodyPartInfo_bodyParts_10_normal,bodyPartInfo_bodyParts_1_description,bodyPartInfo_bodyParts_1_name,bodyPartInfo_bodyParts_1_normal,bodyPartInfo_bodyParts_2_description,bodyPartInfo_bodyParts_2_name,bodyPartInfo_bodyParts_2_normal,bodyPartInfo_bodyParts_3_description,bodyPartInfo_bodyParts_3_name,bodyPartInfo_bodyParts_3_normal,bodyPartInfo_bodyParts_4_description,bodyPartInfo_bodyParts_4_name,bodyPartInfo_bodyParts_4_normal,bodyPartInfo_bodyParts_5_description,bodyPartInfo_bodyParts_5_name,bodyPartInfo_bodyParts_5_normal,bodyPartInfo_bodyParts_6_description,bodyPartInfo_bodyParts_6_name,bodyPartInfo_bodyParts_6_normal,bodyPartInfo_bodyParts_7_description,bodyPartInfo_bodyParts_7_name,bodyPartInfo_bodyParts_7_normal,bodyPartInfo_bodyParts_8_description,bodyPartInfo_bodyParts_8_name,bodyPartInfo_bodyParts_8_normal,bodyPartInfo_bodyParts_9_description,bodyPartInfo_bodyParts_9_name,bodyPartInfo_bodyParts_9_normal,collectionNumber,completed,datePerformed,generalInfo_classification,generalInfo_comments,matingInfo_comments,matingInfo_performance,matingInfo_performanceDescription,matingInfo_seasonsUsed,matingInfo_sirePastureType,morphologyInfo_comments,morphologyInfo_morphologyMeasurements_0_count,morphologyInfo_morphologyMeasurements_0_morphologyChoice_label,morphologyInfo_morphologyMeasurements_1_count,morphologyInfo_morphologyMeasurements_1_morphologyChoice_label,morphologyInfo_morphologyMeasurements_2_count,morphologyInfo_morphologyMeasurements_2_morphologyChoice_label,morphologyInfo_morphologyMeasurements_3_count,morphologyInfo_morphologyMeasurements_3_morphologyChoice_label,morphologyInfo_morphologyMeasurements_4_count,morphologyInfo_morphologyMeasurements_4_morphologyChoice_label,morphologyInfo_morphologyMeasurements_5_count,morphologyInfo_morphologyMeasurements_5_morphologyChoice_label,morphologyInfo_morphologyMeasurements_6_count,morphologyInfo_morphologyMeasurements_6_morphologyChoice_label,morphologyInfo_morphologyMeasurements_7_count,morphologyInfo_morphologyMeasurements_7_morphologyChoice_label,motilityInfo_comments,motilityInfo_grossMotilityCategory,motilityInfo_individualMotility,motilityInfo_motilityPercent,physicalInfo_bodyCondition,physicalInfo_comments,physicalInfo_frameScore,physicalInfo_hipHeight,physicalInfo_hipHeightUnits,physicalInfo_pelvicXMeasure,physicalInfo_pelvicYMeasure,physicalInfo_scrotalCircumference,rancher_address_address1,rancher_address_address2,rancher_address_city,rancher_address_email,rancher_address_phone,rancher_address_state,rancher_address_zip,rancher_firstName,rancher_lastName,rancher_ranchName,uuid,veterinarian_address_address1,veterinarian_address_address2,veterinarian_address_city,veterinarian_address_email,veterinarian_address_phone,veterinarian_address_state,veterinarian_address_zip,veterinarian_clinicName,veterinarian_firstName,veterinarian_lastName\n";
+    var header = "animal_age,animal_ageType,animal_brand,animal_breed,animal_dateOfBirth,animal_lotNumber,animal_rfid,animal_tag,animal_tattoo,animal_other,bodyPartInfo_bodyParts_Eye_description,bodyPartInfo_bodyParts_Eye_normal,bodyPartInfo_bodyParts_Feet_description,bodyPartInfo_bodyParts_Feet_normal,bodyPartInfo_bodyParts_Legs_description,bodyPartInfo_bodyParts_Legs_normal,bodyPartInfo_bodyParts_Testicle_description,bodyPartInfo_bodyParts_Testicle_normal,bodyPartInfo_bodyParts_Accessory_description,bodyPartInfo_bodyParts_Accessory_normal,bodyPartInfo_bodyParts_Inguinal_description,bodyPartInfo_bodyParts_Inguinal_normal,bodyPartInfo_bodyParts_Scrotal_description,bodyPartInfo_bodyParts_Scrotal_normal,bodyPartInfo_bodyParts_Epidydimides_description,bodyPartInfo_bodyParts_Epidydimides_normal,bodyPartInfo_bodyParts_Penis_description,bodyPartInfo_bodyParts_Penis_normal,bodyPartInfo_bodyParts_Prepuce_description,bodyPartInfo_bodyParts_Prepuce_normal,bodyPartInfo_bodyParts_Scrotum_description,bodyPartInfo_bodyParts_Scrotum_normal,collectionNumber,completed,datePerformed,generalInfo_classification,generalInfo_comments,matingInfo_comments,matingInfo_performance,matingInfo_performanceDescription,matingInfo_seasonsUsed,matingInfo_sirePastureType,morphologyInfo_comments,morphologyInfo_morphologyMeasurements_0_count,morphologyInfo_morphologyMeasurements_0_morphologyChoice_label,morphologyInfo_morphologyMeasurements_1_count,morphologyInfo_morphologyMeasurements_1_morphologyChoice_label,morphologyInfo_morphologyMeasurements_2_count,morphologyInfo_morphologyMeasurements_2_morphologyChoice_label,morphologyInfo_morphologyMeasurements_3_count,morphologyInfo_morphologyMeasurements_3_morphologyChoice_label,morphologyInfo_morphologyMeasurements_4_count,morphologyInfo_morphologyMeasurements_4_morphologyChoice_label,morphologyInfo_morphologyMeasurements_5_count,morphologyInfo_morphologyMeasurements_5_morphologyChoice_label,morphologyInfo_morphologyMeasurements_6_count,morphologyInfo_morphologyMeasurements_6_morphologyChoice_label,morphologyInfo_morphologyMeasurements_7_count,morphologyInfo_morphologyMeasurements_7_morphologyChoice_label,morphologyInfo_morphologyMeasurements_8_count,morphologyInfo_morphologyMeasurements_8_morphologyChoice_label,motilityInfo_comments,motilityInfo_grossMotilityCategory,motilityInfo_individualMotility,motilityInfo_motilityPercent,physicalInfo_bodyCondition,physicalInfo_comments,physicalInfo_frameScore,physicalInfo_hipHeight,physicalInfo_hipHeightUnits,physicalInfo_pelvicXMeasure,physicalInfo_pelvicYMeasure,physicalInfo_scrotalCircumference,rancher_address_address1,rancher_address_address2,rancher_address_city,rancher_address_email,rancher_address_phone,rancher_address_state,rancher_address_zip,rancher_firstName,rancher_lastName,rancher_ranchName,uuid,veterinarian_address_address1,veterinarian_address_address2,veterinarian_address_city,veterinarian_address_email,veterinarian_address_phone,veterinarian_address_state,veterinarian_address_zip,veterinarian_clinicName,veterinarian_firstName,veterinarian_lastName\n";
     
     var finalCSVLine = "";
     
     
 
     @IBAction func Delete(sender: AnyObject) {
-        let alert = UIAlertController(title: "WARNING!", message: "This will permenently delete the data in this group.", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Delete Operation", message: "This feature is disabled till next update.", preferredStyle: .Alert)
         
         
         //3. Grab the value from the text field, and print it when the user clicks OK.
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
-            self.group.unpinInBackground()
-            self.group.deleteInBackground()
+           
+            /*let query = PFQuery(className:"RanchInfo");
+            
+            query.fromLocalDatastore();
+            query.orderByAscending("updatedAt");
+            
+            query.findObjectsInBackgroundWithBlock { (ranchers: [PFObject]?, error: NSError?) -> Void in
+                if let ranchers = ranchers as [PFObject]!
+                {
+                    self.ranchersArray = ranchers as [PFObject];
+                    
+                }
+                self.group.unpinInBackgroundWithBlock({(success: Bool, error: NSError?) -> Void in
+                for var i = 0; i < self.ranchersArray.count; i++
+                    {
+                        if(self.group != self.ranchersArray[i])
+                        {
+                            self.ranchersArray[i].pinInBackgroundWithBlock({(success: Bool, error: NSError?) -> Void in
+                                
+                            });
+                        }
+                        
+                        
+                    }
+                    
+
+                });
+                                          };
+
+            
+            
             if let nav = self.navigationController{
                 nav.popViewControllerAnimated(true)
-            }
+            }*/
             
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler: { (action) -> Void in
@@ -118,16 +148,26 @@ class ExistingGroupViewController: UIViewController {
             var age : String = "";
             if(bull["AgeMonth"] != nil)
             {
-                age += bull["AgeMonth"] as! String + " Months ";
+                if(bull["AgeMonth"] as! String != "")
+                {age += (bull["AgeMonth"] as! String + " Months ").stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);}
+                else
+                {
+                age += "0 Months ".stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
+                }
             }
             if(bull["AgeYear"] != nil)
             {
-                age += bull["AgeYear"] as! String + " Years";
+                if(bull["AgeYear"] as! String != "")
+                {age += (bull["AgeYear"] as! String + " Years").stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);}
+                else
+                {
+                age += "0 Years".stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
+                }
             }
             line += age + ",,";
             if (bull["bullBrand"] != nil){
                 
-                    line += bull["bullBrand"] as! String;
+                    line += (bull["bullBrand"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                     line += ",";
             }
                 else {
@@ -137,7 +177,7 @@ class ExistingGroupViewController: UIViewController {
             
             
             if (bull["breed"] != nil){
-                line += bull["breed"] as! String;
+                line += (bull["breed"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
             }
             else {
@@ -157,7 +197,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if (bull["lot"] != nil){
-                line += bull["lot"] as! String;
+                line += (bull["lot"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
             }
             else {
@@ -166,7 +206,7 @@ class ExistingGroupViewController: UIViewController {
             
             if (bull["bullRFID"] != nil){
                 
-                    line += bull["bullRFID"] as! String;
+                    line += (bull["bullRFID"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                     line += ",";
                 
                
@@ -176,7 +216,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["bullTag"] != nil){
-                 line += bull["bullTag"] as! String;
+                 line += (bull["bullTag"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                     line += ",";
                 
             }
@@ -185,14 +225,14 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["bullTattoo"] != nil){
-                    line += bull["bullTattoo"] as! String;
+                    line += (bull["bullTattoo"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                line += ",";
             }
             else {
                 line += ",";
             }
             if(bull["bullOther"] != nil){
-                line += bull["bullOther"] as! String;
+                line += (bull["bullOther"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
             }
             else {
@@ -201,18 +241,17 @@ class ExistingGroupViewController: UIViewController {
 
             if(bull["eyeDescription"] != nil){
             if(bull["eyeDescription"] as! String != ""){
-                line += bull["eyeDescription"] as! String;
+                line += (bull["eyeDescription"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
-                line += "Eye";
-                line += ",";
+                
                 
             }
             else{
-                line += ",Eye,";
+                line += ",";
                 }
             }
             else{
-                line += ",Eye,";
+                line += ",";
             }
             if(bull["eyesNormal"] != nil)
             {
@@ -230,17 +269,16 @@ class ExistingGroupViewController: UIViewController {
                 line += "FALSE,"}
             if(bull["feetDescription"] != nil){
             if(bull["feetDescription"] as! String != ""){
-                line += bull["feetDescription"] as! String;
+                line += (bull["feetDescription"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
-                line += "Feet";
-                line += ",";
+                
                            }
             else{
-                line += ",Feet,";
+                line += ",";
                 }
             }
             else{
-                line += ",Feet,";
+                line += ",";
             }
             if(bull["feetNormal"] != nil)
             {
@@ -258,18 +296,16 @@ class ExistingGroupViewController: UIViewController {
                 line += "FALSE,"}
             if(bull["legsDescription"] != nil){
             if(bull["legsDescription"] as! String != ""){
-                line += bull["legsDescription"] as! String;
-                line += ",";
-                line += "Legs";
+                line += (bull["legsDescription"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
             else{
-                line += ",Legs,";
+                line += ",";
                 }
             }
             else{
-                line += ",Legs,";
+                line += ",";
             }
             if(bull["legsNormal"] != nil)
             {
@@ -288,18 +324,17 @@ class ExistingGroupViewController: UIViewController {
             }
             if(bull["testiclesDescription"] != nil){
             if(bull["testiclesDescription"] as! String != ""){
-                line += bull["testiclesDescription"] as! String;
+                line += (bull["testiclesDescription"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
-                line += "Testicle";
-                line += ",";
+              
                 
             }
             else{
-                line += ",Testicle,";
+                line += ",";
                 }
             }
             else{
-                line += ",Testicle,";
+                line += ",";
             }
             if(bull["testiclesNormal"] != nil)
             {
@@ -318,18 +353,16 @@ class ExistingGroupViewController: UIViewController {
             }
             if(bull["accesoryDescription"] != nil){
             if(bull["accesoryDescription"] as! String != ""){
-                line += bull["accesoryDescription"] as! String;
-                line += ",";
-                line += "Accessory";
+                line += (bull["accesoryDescription"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
             else{
-                line += ",Accessory,";
+                line += ",";
                 }
             }
             else{
-                line += ",Accesory,";
+                line += ",";
             }
             if(bull["accesoryNormal"] != nil)
             {
@@ -349,18 +382,16 @@ class ExistingGroupViewController: UIViewController {
             }
             if(bull["inguinalDescription"] != nil){
             if(bull["inguinalDescription"] as! String != ""){
-                line += bull["inguinalDescription"] as! String;
-                line += ",";
-                line += "Inguinal";
+                line += (bull["inguinalDescription"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
             else{
-                line += ",Inguinal,";
+                line += ",";
                 }
             }
             else{
-                line += ",Inguinal,";
+                line += ",";
             }
             if(bull["inguinalNormal"] != nil)
             {
@@ -379,17 +410,16 @@ class ExistingGroupViewController: UIViewController {
             }
             if(bull["scrotalDescription"] != nil){
             if(bull["scrotalDescription"] as! String != ""){
-                line += bull["scrotalDescription"] as! String;
+                line += (bull["scrotalDescription"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
-                line += "Scrotal";
-                line += ",";
+               
                            }
             else{
-                line += ",Scrotal,";
+                line += ",";
                 }
             }
             else{
-                line += ",Scrotal,";
+                line += ",";
             }
             if(bull["scrotalNormal"] != nil)
             {
@@ -408,17 +438,15 @@ class ExistingGroupViewController: UIViewController {
             }
             if(bull["epidydimidesDescription"] != nil){
             if(bull["epidydimidesDescription"] as! String != ""){
-                line += bull["epidydimidesDescription"] as! String;
+                line += (bull["epidydimidesDescription"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
-                line += "Epidydimides";
-                line += ",";
-                            }
+                                            }
             else{
-                line += ",Epidydimides,";
+                line += ",";
                 }
             }
             else{
-                line += ",Epidydimides,";
+                line += ",";
             }
             if(bull["epidydimidesNormal"] != nil)
             {
@@ -437,17 +465,15 @@ class ExistingGroupViewController: UIViewController {
             }
             if(bull["penisDescription"] != nil){
             if(bull["penisDescription"] as! String != ""){
-                line += bull["penisDescription"] as! String;
+                line += (bull["penisDescription"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
-                line += "Penis";
-                line += ",";
-                            }
+                                           }
             else{
-                line += ",Penis,";
+                line += ",";
                 }
             }
             else{
-                line += ",Penis,";
+                line += ",";
             }
             if(bull["penisNormal"] != nil)
             {
@@ -466,17 +492,15 @@ class ExistingGroupViewController: UIViewController {
             }
             if(bull["prepuceDescription"] != nil){
             if(bull["prepuceDescription"] as! String != ""){
-                line += bull["prepuceDescription"] as! String;
+                line += (bull["prepuceDescription"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
-                line += "Prepuce";
-                line += ",";
-                            }
+                                            }
             else{
-                line += ",Prepuce,";
+                line += ",";
                 }
             }
             else{
-                line += ",Prepuce,";
+                line += ",";
             }
             if(bull["prepuceNormal"] != nil)
             {
@@ -495,18 +519,15 @@ class ExistingGroupViewController: UIViewController {
             }
             if(bull["scrotumDescription"] != nil){
             if(bull["scrotumDescription"] as! String != ""){
-                line += bull["scrotumDescription"] as! String;
+                line += (bull["scrotumDescription"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
-                line += "Scrotum";
-                line += ",";
-                
-                }
+                              }
             else{
-                line += ",Scrotum,";
+                line += ",";
                 }
             }
             else{
-                line += ",Scrotum,";
+                line += ",";
             }
             if(bull["scrotumNormal"] != nil)
             {
@@ -538,7 +559,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["classification"] != nil){
-                line += bull["classification"] as! String;
+                line += (bull["classification"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
             }
             else {
@@ -546,7 +567,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["classificationText"] != nil){
-                line += bull["classificationText"] as! String;
+                line += (bull["classificationText"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
             }
             else {
@@ -556,7 +577,7 @@ class ExistingGroupViewController: UIViewController {
             
             
             if(bull["matingComments"] != nil) {
-                line += bull["matingComments"] as! String;
+                line += (bull["matingComments"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
             }
             else {
@@ -564,7 +585,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["lastSeasonPerformance"] != nil){
-                line += bull["lastSeasonPerformance"] as! String;
+                line += (bull["lastSeasonPerformance"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
             }
             else {
@@ -572,7 +593,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["matingDescription"] != nil){
-                line += bull["matingDescription"] as! String;
+                line += (bull["matingDescription"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
             }
             else {
@@ -580,7 +601,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["seasonsUsed"] != nil){
-                line += bull["seasonsUsed"] as! String;
+                line += (bull["seasonsUsed"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",,";//added for not pasture type
             }
             else {
@@ -588,7 +609,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["singleOrMultiSire"] != nil){
-                line += bull["singleOrMultiSire"] as! String;
+                line += (bull["singleOrMultiSire"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
             }
             else {
@@ -620,7 +641,7 @@ class ExistingGroupViewController: UIViewController {
                     }
                     
                     if(collections[0]["title1"] != nil){
-                        line += collections[0]["title1"] as! String;
+                        line += (collections[0]["title1"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                         line += ",";
                     }
                     else{
@@ -638,7 +659,7 @@ class ExistingGroupViewController: UIViewController {
                     }
                     
                     if(collections[0]["title2"] != nil){
-                        line += collections[0]["title2"] as! String;
+                        line += (collections[0]["title2"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                         line += ",";
                     }
                     else{
@@ -656,7 +677,7 @@ class ExistingGroupViewController: UIViewController {
                     }
                     
                     if(collections[0]["title3"] != nil){
-                        line += collections[0]["title3"] as! String;
+                        line += (collections[0]["title3"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                         line += ",";
                     }
                     else{
@@ -674,7 +695,7 @@ class ExistingGroupViewController: UIViewController {
                     }
                     
                     if(collections[0]["title4"] != nil){
-                        line += collections[0]["title4"] as! String;
+                        line += (collections[0]["title4"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                         line += ",";
                     }
                     else{
@@ -692,7 +713,7 @@ class ExistingGroupViewController: UIViewController {
                     }
                     
                     if(collections[0]["title5"] != nil){
-                        line += collections[0]["title5"] as! String;
+                        line += (collections[0]["title5"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                         line += ",";
                     }
                     else{
@@ -710,7 +731,7 @@ class ExistingGroupViewController: UIViewController {
                     }
                     
                     if(collections[0]["title6"] != nil){
-                        line += collections[0]["title6"] as! String;
+                        line += (collections[0]["title6"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                         line += ",";
                     }
                     else{
@@ -728,7 +749,7 @@ class ExistingGroupViewController: UIViewController {
                     }
                     
                     if(collections[0]["title7"] != nil){
-                        line += collections[0]["title7"] as! String;
+                        line += (collections[0]["title7"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                         line += ",";
                     }
                     else{
@@ -746,26 +767,44 @@ class ExistingGroupViewController: UIViewController {
                     }
                     
                     if(collections[0]["title8"] != nil){
-                        line += collections[0]["title8"] as! String;
+                        line += (collections[0]["title8"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                         line += ",";
                     }
                     else{
                         line += ",";
                     }
+                    if(collections[0]["m9"] != nil){
+                        let temp = collections[0]["m9"] as! Int;
+                        line += String(temp);
+                        line += ",";
+                        
+                    }
+                    else {
+                        line += ",";
+                    }
+                    
+                    if(collections[0]["title9"] != nil){
+                        line += (collections[0]["title9"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
+                        line += ",";
+                    }
+                    else{
+                        line += ",";
+                    }
+
                 }
                 else {
-                    line += ",,,,,,,,,,,,,,,,";
+                    line += ",,,,,,,,,,,,,,,,,,";
                 }
 
             } catch {
-                line += ",,,,,,,,,,,,,,,,";
+                line += ",,,,,,,,,,,,,,,,,,";
             }
             
             line += ",";//Motility Info Comments
             
             
             if(bull["grossType"] != nil){
-                line  += bull["grossType"] as! String;
+                line  += (bull["grossType"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
 
             }
@@ -774,7 +813,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["individualMotility"] != nil){
-                line  += bull["individualMotility"] as! String;
+                line  += (bull["individualMotility"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
 
             }
@@ -783,7 +822,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["motilityPercent"] != nil){
-                line  += bull["motilityPercent"] as! String;
+                line  += (bull["motilityPercent"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
 
             }
@@ -792,7 +831,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["bodyCondition"] != nil){
-                line  += bull["bodyCondition"] as! String;
+                line  += (bull["bodyCondition"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",,";
 
             }
@@ -801,7 +840,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["frameScore"] != nil){
-                line  += bull["frameScore"] as! String;
+                line  += (bull["frameScore"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
 
             }
@@ -810,7 +849,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["hipHeight"] != nil){
-                line  += bull["hipHeight"] as! String;
+                line  += (bull["hipHeight"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",cm,";
                 
             }
@@ -819,7 +858,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["pelvicXMeasurement"] != nil){
-                line  += bull["pelvicXMeasurement"] as! String;
+                line  += (bull["pelvicXMeasurement"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -828,7 +867,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["pelvicYMeasurement"] != nil){
-                line  += bull["pelvicYMeasurement"] as! String;
+                line  += (bull["pelvicYMeasurement"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -837,7 +876,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(bull["scrotalCircumference"] != nil){
-                line  += bull["scrotalCircumference"] as! String;
+                line  += (bull["scrotalCircumference"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -846,7 +885,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(group["address1"] != nil){
-                line  += group["address1"] as! String;
+                line  += (group["address1"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -855,7 +894,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(group["address2"] != nil){
-                line  += group["address2"] as! String;
+                line  += (group["address2"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -864,7 +903,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(group["city"] != nil){
-                line  += group["city"] as! String;
+                line  += (group["city"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -873,7 +912,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(group["email"] != nil){
-                line  += group["email"] as! String;
+                line  += (group["email"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -882,7 +921,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(group["phone"] != nil){
-                line  += group["phone"] as! String;
+                line  += (group["phone"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -892,7 +931,7 @@ class ExistingGroupViewController: UIViewController {
             
             
             if(group["state"] != nil){
-                line  += group["state"] as! String;
+                line  += (group["state"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -901,7 +940,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(group["zip"] != nil){
-                line  += group["zip"] as! String;
+                line  += (group["zip"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -910,7 +949,7 @@ class ExistingGroupViewController: UIViewController {
             }
 
             if(group["firstName"] != nil){
-                line  += group["firstName"] as! String;
+                line  += (group["firstName"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -919,7 +958,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(group["firstName"] != nil){
-                line  += group["firstName"] as! String;
+                line  += (group["firstName"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -928,7 +967,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(group["ranchName"] != nil){
-                line  += group["ranchName"] as! String;
+                line  += (group["ranchName"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -952,7 +991,7 @@ class ExistingGroupViewController: UIViewController {
             
             
             if(user["address1"] != nil){
-                line  += user["address1"] as! String;
+                line  += (user["address1"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -961,7 +1000,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(user["address2"] != nil){
-                line  += user["address2"] as! String;
+                line  += (user["address2"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -970,7 +1009,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(user["city"] != nil){
-                line  += user["city"] as! String;
+                line  += (user["city"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -979,7 +1018,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(user["email"] != nil){
-                line  += user["email"] as! String;
+                line  += (user["email"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -988,7 +1027,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(user["phone"] != nil){
-                line  += user["phone"] as! String;
+                line  += (user["phone"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -997,7 +1036,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(user["state"] != nil){
-                line  += user["state"] as! String;
+                line  += (user["state"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -1006,7 +1045,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(user["zip"] != nil){
-                line  += user["zip"] as! String;
+                line  += (user["zip"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -1015,7 +1054,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(user["clinicName"] != nil){
-                line  += user["clinicName"] as! String;
+                line  += (user["clinicName"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -1024,7 +1063,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(user["firstName"] != nil){
-                line  += user["firstName"] as! String;
+                line  += (user["firstName"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 line += ",";
                 
             }
@@ -1033,7 +1072,7 @@ class ExistingGroupViewController: UIViewController {
             }
             
             if(user["lastName"] != nil){
-                line  += user["lastName"] as! String;
+                line  += (user["lastName"] as! String).stringByReplacingOccurrencesOfString(",", withString: ";", options: NSStringCompareOptions.LiteralSearch, range: nil);
                 
                 
             }
@@ -1070,6 +1109,12 @@ class ExistingGroupViewController: UIViewController {
             let bullTableVC = segue.destinationViewController as! BullTableViewController;
             
             bullTableVC.group = self.group;
+        }
+        if(segue.identifier=="EditGroup"){
+            let NewbullVC = segue.destinationViewController as! NewGroupViewController;
+            
+            NewbullVC.group = self.group;
+
         }
     }
     

@@ -40,6 +40,7 @@ class BullInfoViewController: UIViewController {
         age  = String(Y);
         bull ["AgeYear"] = age;
         Years.text = age;
+        Datelabel.text = (bull["AgeMonth"] as? String)! + "Months " + (bull["AgeYear"] as? String)! + "Years"
         bull.pinInBackground();
     }
     
@@ -173,6 +174,7 @@ class BullInfoViewController: UIViewController {
     //Called before navigating back. This will save all necessary data.
 
     override func viewWillDisappear(animated: Bool) {
+        bull.pinInBackground();
         }
 
     @IBAction func Save(sender: AnyObject) {
@@ -217,10 +219,31 @@ class BullInfoViewController: UIViewController {
             bull["infoComments"] = Comment.text;
         }
         
+        if(Int((bull["AgeMonth"] as? String)!)!>18)
+        {
+            let alert = UIAlertController(title: "WARNING! Bull Age", message: " This field can not be more than 18, do you wish to continue anyway or change it?", preferredStyle: .Alert)
+            
+        //2. Add the text field. You can configure it however you need.
+        alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+            textField.text = self.Month.text
+        })
+        
+        //3. Grab the value from the text field, and print it when the user clicks OK.
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+            let textField = alert.textFields![0] as UITextField;
+            print("Text field: \(textField.text)");
+            self.Month.text=textField.text
+        }))
+        
+        // 4. Present the alert.
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+        }
         bull.pinInBackground();
         if let nav = self.navigationController{
         nav.popViewControllerAnimated(true)
         }
+        
 
     }
        func datePickerChanged(sender: UIDatePicker) {

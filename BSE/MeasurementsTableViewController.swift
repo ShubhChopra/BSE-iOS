@@ -54,6 +54,7 @@ class MeasurementsTableViewController: UITableViewController {
     
     
     override func viewWillDisappear(animated: Bool) {
+        bull.pinInBackground();
        
     }
     
@@ -105,7 +106,7 @@ class MeasurementsTableViewController: UITableViewController {
             var temp2 : Float = Float (temp!)
             temp1=temp1*2
             temp2=temp2*2
-            if((temp>30 || temp<8) || ( Float (temp1) != temp2  && Float(temp1) + 1 != temp2))
+            if((temp>20 || temp<1) || ( Float (temp1) != temp2  && Float(temp1) + 1 != temp2))
             {
                 let alert = UIAlertController(title: "WARNING! Frame Score", message: " This field can not be more than 20 and less than 1 (only increments of .5), do you wish to continue anyway or change it?", preferredStyle: .Alert)
                 
@@ -137,8 +138,8 @@ class MeasurementsTableViewController: UITableViewController {
             let temp  = Float(pelvicY.text!)
             var temp1:Int = Int (temp!)
             var temp2 : Float = Float (temp!)
-            temp1=temp1*2
-            temp2=temp2*2
+            temp1=temp1*10
+            temp2=temp2*10
             if((temp>30 || temp<8) || ( Float (temp1) != temp2  && Float(temp1) + 1 != temp2))
             {
                 let alert = UIAlertController(title: "WARNING! Pelvic Y Measure", message: " This field can not be more than 30 and less than 8 (only increments of .5), do you wish to continue anyway or change it?", preferredStyle: .Alert)
@@ -171,8 +172,8 @@ class MeasurementsTableViewController: UITableViewController {
             let temp  = Float(pelvicX.text!)
             var temp1:Int = Int (temp!)
             var temp2 : Float = Float (temp!)
-            temp1=temp1*2
-            temp2=temp2*2
+            temp1=temp1*10
+            temp2=temp2*10
             if((temp>30 || temp<8) || ( Float (temp1) != temp2  && Float(temp1) + 1 != temp2))
             {
                 let alert = UIAlertController(title: "WARNING! Pelvic X Measure", message: " This field can not be more than 30 and less than 8 (only increments of .5), do you wish to continue anyway or change it?", preferredStyle: .Alert)
@@ -205,8 +206,8 @@ class MeasurementsTableViewController: UITableViewController {
             let temp  = Float(bodyCondition.text!)
             var temp1:Int = Int (temp!)
             var temp2 : Float = Float (temp!)
-            temp1=temp1*2
-            temp2=temp2*2
+            temp1=temp1*10
+            temp2=temp2*10
             if(temp>9 || ( Float (temp1) != temp2  && Float(temp1) + 1 != temp2))
             {
                 let alert = UIAlertController(title: "WARNING! Body Circumference ", message: " This field can not be more than 9 (only increments of .5), do you wish to continue anyway or change it?", preferredStyle: .Alert)
@@ -241,8 +242,8 @@ class MeasurementsTableViewController: UITableViewController {
             let temp  = Float(scrotalCircumference.text!)
             var temp1:Int = Int (temp!)
             var temp2 : Float = Float (temp!)
-            temp1=temp1*2
-            temp2=temp2*2
+            temp1=temp1*10
+            temp2=temp2*10
             if(temp>60 || ( Float (temp1) != temp2  && Float(temp1) + 1 != temp2))
             {
                 let alert = UIAlertController(title: "WARNING! Scrotal Circumference", message: " This field can not be more than 60cm (only increments of .5), do you wish to continue anyway or change it?", preferredStyle: .Alert)

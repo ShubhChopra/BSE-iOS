@@ -61,7 +61,10 @@ class BullMatingViewController: UIViewController , UIPickerViewDataSource, UIPic
             else if (singleMultiString == "Multi-Sire"){
                 singleMuti.selectedSegmentIndex = 1;
             }
-            
+            else if (singleMultiString == "NotUsed")
+            {
+                singleMuti.selectedSegmentIndex = 2;
+            }
         }
         
         if(bull["lastSeasonPerformance"] != nil){
@@ -93,6 +96,7 @@ class BullMatingViewController: UIViewController , UIPickerViewDataSource, UIPic
     
     
     override func viewWillDisappear(animated: Bool) {
+        bull.pinInBackground();
            }
     
     @IBAction func Save(sender: AnyObject) {
@@ -126,6 +130,8 @@ class BullMatingViewController: UIViewController , UIPickerViewDataSource, UIPic
             bull["singleOrMultiSire"] = "Single-Sire";
         case 1:
             bull["singleOrMultiSire"] = "Multi-Sire";
+        case 2:
+            bull["singleOrMultiSire"] = "NotUsed";
         default:
             break;
         }
